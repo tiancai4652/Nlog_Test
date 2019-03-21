@@ -1,0 +1,4 @@
+        配置文件命名：
+        NLog.config（大小写敏感）
+        原因：exe，web，other统一同一规则
+
