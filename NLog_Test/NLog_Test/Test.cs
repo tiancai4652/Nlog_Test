@@ -29,6 +29,11 @@ namespace NLog_Test
             //logger.Debug("Debug");
             //Like
             //2019-03-21 17:04:55.7835|DEBUG|NLog_Test.Test|Debug
+            //2019 - 03 - 21 18:13:27.9291 | FATAL | NLog_Test.Test | Fatal
+            //2019 - 03 - 21 18:13:49.7761 | ERROR | NLog_Test.Test | Error
+            //2019 - 03 - 21 18:14:03.0481 | WARN | NLog_Test.Test | Warn
+            //2019 - 03 - 21 18:14:21.9421 | INFO | NLog_Test.Test | Info
+            //2019 - 03 - 21 18:14:39.8131 | DEBUG | NLog_Test.Test | Debug
 
             //Config
             LogManager.Configuration = XmlLoggingConfiguration.CreateFromXmlString(@"
@@ -59,42 +64,47 @@ namespace NLog_Test
             logger.Fatal("Fatal");
             Assert.Equal(1, debugTarget_Fatal.Counter);
             string s = debugTarget_Fatal.LastMessage;
-            //Assert.Equal("Fatal", debugTarget_Debug.LastMessage);
-            //
+            Assert.Contains("Fatal", s);
+
 
             logger.Error("Error");
             Assert.Equal(1, debugTarget_Error.Counter);
             s = debugTarget_Error.LastMessage;
-            //Assert.Equal("Fatal", debugTarget_Debug.LastMessage);
+            Assert.Contains("Error", s);
 
 
             logger.Warn("Warn");
             Assert.Equal(1, debugTarget_Warn.Counter);
             s = debugTarget_Warn.LastMessage;
-            //Assert.Equal("Fatal", debugTarget_Debug.LastMessage);
+            Assert.Contains("Warn", s);
 
 
             logger.Info("Info");
             Assert.Equal(1, debugTarget_Info.Counter);
             s = debugTarget_Info.LastMessage;
-            //Assert.Equal("Fatal", debugTarget_Debug.LastMessage);
+            Assert.Contains("Info", s);
 
 
             logger.Debug("Debug");
             Assert.Equal(1, debugTarget_Debug.Counter);
             s = debugTarget_Debug.LastMessage;
-            //Assert.Equal("Fatal", debugTarget_Debug.LastMessage);
+            Assert.Contains("Debug", s);
 
 
         }
 
         [Trait("Base", "Target.Type;Logger,level,writeTo")]
         [Fact]
-        public void Base2()
+        public void Base1()
         {
             //logger.Debug("Debug");
             //Like
             //2019-03-21 17:04:55.7835|DEBUG|NLog_Test.Test|Debug
+            //2019 - 03 - 21 18:13:27.9291 | FATAL | NLog_Test.Test | Fatal
+            //2019 - 03 - 21 18:13:49.7761 | ERROR | NLog_Test.Test | Error
+            //2019 - 03 - 21 18:14:03.0481 | WARN | NLog_Test.Test | Warn
+            //2019 - 03 - 21 18:14:21.9421 | INFO | NLog_Test.Test | Info
+            //2019 - 03 - 21 18:14:39.8131 | DEBUG | NLog_Test.Test | Debug
 
             //Config
             LogManager.Configuration = XmlLoggingConfiguration.CreateFromXmlString(@"
@@ -125,45 +135,56 @@ namespace NLog_Test
             logger.Fatal("Fatal");
             Assert.Equal(1, debugTarget_Fatal.Counter);
             string s = debugTarget_Fatal.LastMessage;
-            //Assert.Equal("Fatal", debugTarget_Debug.LastMessage);
-            //
+            Assert.Contains("Fatal", s);
+
 
             logger.Error("Error");
             Assert.Equal(1, debugTarget_Error.Counter);
             s = debugTarget_Error.LastMessage;
-            //Assert.Equal("Fatal", debugTarget_Debug.LastMessage);
+            Assert.Contains("Error", s);
 
 
             logger.Warn("Warn");
             Assert.Equal(1, debugTarget_Warn.Counter);
             s = debugTarget_Warn.LastMessage;
-            //Assert.Equal("Fatal", debugTarget_Debug.LastMessage);
+            Assert.Contains("Warn", s);
 
 
             logger.Info("Info");
             Assert.Equal(1, debugTarget_Info.Counter);
             s = debugTarget_Info.LastMessage;
-            //Assert.Equal("Fatal", debugTarget_Debug.LastMessage);
+            Assert.Contains("Info", s);
 
 
             logger.Debug("Debug");
             Assert.Equal(1, debugTarget_Debug.Counter);
             s = debugTarget_Debug.LastMessage;
-            //Assert.Equal("Fatal", debugTarget_Debug.LastMessage);
+            Assert.Contains("Debug", s);
 
 
         }
 
+        [Trait("Base", "Target.Type;Logger,level,writeTo")]
+        [Fact]
+        public void Layout()
+        {
+            //Config
+            LogManager.Configuration =new XmlLoggingConfiguration(@"..\..\Layout\CsvLayout\CsvLayout.config");
+         
+            ILogger logger = LogManager.GetCurrentClassLogger();
+           
+            logger.Debug("Debug");
+        }
 
+        [Trait("Base", "Target.Type;Logger,level,writeTo")]
+        [Fact]
+        public void Layout2()
+        {
+            //Config
+            LogManager.Configuration = new XmlLoggingConfiguration(@"..\..\Layout\CsvLayout\CsvLayout2.config");
+            ILogger logger = LogManager.GetCurrentClassLogger();
+            logger.Debug("Debug");
 
-
-
-
-
-
-
-
-
-
+        }
     }
 }
